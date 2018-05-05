@@ -13,6 +13,4 @@ data class WeatherEntry (@PrimaryKey(autoGenerate = true)
                          val min: Double,
                          val max: Double,
                          val humidity: Double,
-                         val pressure: Double,
-                         val wind: Double,
-                         val degree: Double)
+                         val description: String)
