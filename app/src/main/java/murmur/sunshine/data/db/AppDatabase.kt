@@ -9,7 +9,7 @@ import murmur.sunshine.data.db.dao.WeatherDao
 import murmur.sunshine.data.db.entity.WeatherEntry
 import murmur.sunshine.data.db.entity.mapper.Converter
 
-@Database(entities = [WeatherEntry::class], version = 1)
+@Database(entities = [WeatherEntry::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
