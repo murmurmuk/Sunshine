@@ -3,8 +3,8 @@ package murmur.sunshine.data
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.util.Log
-import murmur.sunshine.data.api.Response.WeatherResponse
-import murmur.sunshine.data.api.Response.mapper.toEntity
+import murmur.sunshine.data.api.response.WeatherResponse
+import murmur.sunshine.data.api.response.mapper.toEntity
 import murmur.sunshine.data.db.AppDatabase
 import murmur.sunshine.data.db.entity.WeatherEntry
 import murmur.sunshine.util.SingletonItem
@@ -63,6 +63,12 @@ class WeatherRepository(ctx: Context)  {
             } else {
                 fetchFromCache(liveData)
             }
+        }
+    }
+
+    fun getWeatherDetail(liveData: MutableLiveData<WeatherEntry>, id: Long) {
+        thread {
+            liveData.postValue(weatherDao.getWeatherById(id))
         }
     }
 }

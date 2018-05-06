@@ -1,6 +1,6 @@
-package murmur.sunshine.data.api.Response.mapper
+package murmur.sunshine.data.api.response.mapper
 
-import murmur.sunshine.data.api.Response.WeatherItem
+import murmur.sunshine.data.api.response.WeatherItem
 import murmur.sunshine.data.db.entity.WeatherEntry
 import java.util.concurrent.TimeUnit
 

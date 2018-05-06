@@ -13,8 +13,8 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<WeatherEntry>)
 
-    @Query("SELECT * FROM weather WHERE date = :date")
-    fun getWeatherByDate(date: Long): WeatherEntry
+    @Query("SELECT * FROM weather WHERE id = :id")
+    fun getWeatherById(id: Long): WeatherEntry
 
     @Query("SELECT * FROM weather")
     fun getWeatherAll(): List<WeatherEntry>

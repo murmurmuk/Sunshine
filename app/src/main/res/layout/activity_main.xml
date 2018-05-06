@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/weather_list"
+            android:id="@+id/forecast_recycler_view"
             android:layout_height="0dp"
             android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="parent"

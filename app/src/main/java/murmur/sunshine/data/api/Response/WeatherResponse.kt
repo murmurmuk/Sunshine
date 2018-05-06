@@ -1,4 +1,4 @@
-package murmur.sunshine.data.api.Response
+package murmur.sunshine.data.api.response
 
 data class WeatherResponse (val list: List<WeatherItem>)
 

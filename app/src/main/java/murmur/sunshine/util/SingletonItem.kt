@@ -11,6 +11,6 @@ object SingletonItem {
             .client(client)
             .baseUrl("https://andfun-weather.udacity.com/")
             .addConverterFactory(MoshiConverterFactory.create())
-            .build().create(WeatherService::class.java)
+            .build().create(WeatherService::class.java)!!
 }
 
