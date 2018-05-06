@@ -1,4 +1,4 @@
-package murmur.sunshine.detail
+package murmur.sunshine.ui.detail
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

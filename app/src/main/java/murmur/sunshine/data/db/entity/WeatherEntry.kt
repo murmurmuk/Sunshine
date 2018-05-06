@@ -9,7 +9,7 @@ import java.util.Date
 data class WeatherEntry (@PrimaryKey(autoGenerate = true)
                          var id: Long?,
                          val weatherIconId: Int,
-                         val date: Date,
+                         val date: Long,
                          val min: Double,
                          val max: Double,
                          val humidity: Double,
