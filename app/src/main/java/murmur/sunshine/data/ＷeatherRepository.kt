@@ -1,6 +1,6 @@
 package murmur.sunshine.data
 
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.util.Log
 import murmur.sunshine.data.api.response.WeatherResponse
@@ -31,7 +31,7 @@ class WeatherRepository(ctx: Context)  {
         }
     }
 
-    private fun fetchFromNet(liveData: MutableLiveData<List<WeatherEntry>>) {
+    private fun fetchFromNet() {
         Log.d("kanna", "fetch from network")
         val call = networkService.getWeather()
 
@@ -44,33 +44,24 @@ class WeatherRepository(ctx: Context)  {
                                     response: Response<WeatherResponse>?) {
                 Log.d("kanna", "success ${response?.body().toString()}")
                 val weatherList = response?.body()?.list.toEntity()
-                liveData.postValue(weatherList)
                 resetDb(weatherList)
             }
-
         })
     }
 
-    private fun fetchFromCache(liveData: MutableLiveData<List<WeatherEntry>>) {
-        Log.d("kanna", "fetch from db")
-        liveData.postValue(weatherDao.getWeatherAll())
-    }
-
-
-    fun getForecast(liveData: MutableLiveData<List<WeatherEntry>>) {
+    fun getForecast(): LiveData<List<WeatherEntry>> {
         thread {
             if (needFetchedNew()) {
-                fetchFromNet(liveData)
+                fetchFromNet()
             } else {
-                fetchFromCache(liveData)
+                Log.d("kanna", "fetch from db")
             }
         }
+        return weatherDao.getWeatherAll()
     }
 
-    fun getWeatherDetail(liveData: MutableLiveData<WeatherEntry>, id: Long) {
+    fun getWeatherDetail(id: Long): LiveData<WeatherEntry> {
         Log.d("kanna", "get detail $id")
-        thread {
-            liveData.postValue(weatherDao.getWeatherById(id))
-        }
+        return weatherDao.getWeatherById(id)
     }
 }

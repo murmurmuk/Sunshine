@@ -1,6 +1,11 @@
 package murmur.sunshine.data.db.dao
 
-import android.arch.persistence.room.*
+import android.arch.lifecycle.LiveData
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.Query
+import android.arch.persistence.room.Transaction
 import murmur.sunshine.data.db.entity.WeatherEntry
 
 
@@ -14,10 +19,10 @@ interface WeatherDao {
     fun insert(list: List<WeatherEntry>)
 
     @Query("SELECT * FROM weather WHERE id = :id")
-    fun getWeatherById(id: Long): WeatherEntry
+    fun getWeatherById(id: Long): LiveData<WeatherEntry>
 
     @Query("SELECT * FROM weather")
-    fun getWeatherAll(): List<WeatherEntry>
+    fun getWeatherAll(): LiveData<List<WeatherEntry>>
 
     @Query("SELECT COUNT(id) FROM weather WHERE :date - date < 86400000")
     fun countAllFutureWeather(date: Long): Int
