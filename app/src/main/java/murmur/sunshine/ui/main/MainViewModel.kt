@@ -6,9 +6,9 @@ import murmur.sunshine.data.WeatherRepository
 import murmur.sunshine.data.db.entity.WeatherEntry
 
 class MainViewModel (private val repository: WeatherRepository) : ViewModel() {
-    fun getForecast(): MutableLiveData<List<WeatherEntry>>{
+    val forecast: MutableLiveData<List<WeatherEntry>> by lazy {
         val list = MutableLiveData<List<WeatherEntry>>()
         repository.getForecast(list)
-        return list
+        list
     }
 }

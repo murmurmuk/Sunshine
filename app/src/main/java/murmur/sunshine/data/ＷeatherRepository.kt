@@ -32,6 +32,7 @@ class WeatherRepository(ctx: Context)  {
     }
 
     private fun fetchFromNet(liveData: MutableLiveData<List<WeatherEntry>>) {
+        Log.d("kanna", "fetch from network")
         val call = networkService.getWeather()
 
         call.enqueue(object: Callback<WeatherResponse> {
@@ -67,6 +68,7 @@ class WeatherRepository(ctx: Context)  {
     }
 
     fun getWeatherDetail(liveData: MutableLiveData<WeatherEntry>, id: Long) {
+        Log.d("kanna", "get detail $id")
         thread {
             liveData.postValue(weatherDao.getWeatherById(id))
         }

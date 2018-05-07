@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), ClickHandler {
         val mainViewModel = ViewModelProviders
                 .of(this, factory)[MainViewModel::class.java]
 
-        mainViewModel.getForecast().observe(this, Observer {
+        mainViewModel.forecast.observe(this, Observer {
             it?.forEach {
                Log.d("kanna", "${it.date} ${Date(it.date)} ${it.description} ")
             }

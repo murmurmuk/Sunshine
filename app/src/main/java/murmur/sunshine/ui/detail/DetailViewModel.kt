@@ -5,10 +5,11 @@ import android.arch.lifecycle.ViewModel
 import murmur.sunshine.data.WeatherRepository
 import murmur.sunshine.data.db.entity.WeatherEntry
 
-class DetailViewModel(private val repository: WeatherRepository) : ViewModel() {
-    fun getWeatherDetail(id: Long): MutableLiveData<WeatherEntry>{
+class DetailViewModel(private val repository: WeatherRepository,
+                      val id: Long) : ViewModel() {
+    val weatherDetail: MutableLiveData<WeatherEntry> by lazy {
         val entry = MutableLiveData<WeatherEntry>()
         repository.getWeatherDetail(entry, id)
-        return entry
+        entry
     }
 }
