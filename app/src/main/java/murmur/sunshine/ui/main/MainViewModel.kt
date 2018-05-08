@@ -8,9 +8,9 @@ import murmur.sunshine.data.db.entity.WeatherEntry
 import murmur.sunshine.util.toLiveData
 import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import murmur.sunshine.util.addTo
 
 class MainViewModel (private val repository: WeatherRepository) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
