@@ -4,10 +4,11 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import murmur.sunshine.data.WeatherRepository
 import murmur.sunshine.data.db.entity.WeatherEntry
+import murmur.sunshine.util.toLiveData
 
 class DetailViewModel(private val repository: WeatherRepository,
                       val id: Long) : ViewModel() {
     val weatherDetail: LiveData<WeatherEntry> by lazy {
-        repository.getWeatherDetail(id)
+        repository.getWeatherDetail(id).toLiveData()
     }
 }
