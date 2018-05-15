@@ -6,9 +6,13 @@ import murmur.sunshine.data.WeatherRepository
 import murmur.sunshine.data.db.entity.WeatherEntry
 import murmur.sunshine.util.toLiveData
 
-class DetailViewModel(private val repository: WeatherRepository,
-                      val id: Long) : ViewModel() {
-    val weatherDetail: LiveData<WeatherEntry> by lazy {
-        repository.getWeatherDetail(id).toLiveData()
+class DetailViewModel(private val repository: WeatherRepository) : ViewModel() {
+    private var detailLiveData: LiveData<WeatherEntry>? = null
+
+    fun getWeatherDetail(id: Long): LiveData<WeatherEntry> {
+        if (detailLiveData == null) {
+            detailLiveData = repository.getWeatherDetail(id).toLiveData()
+        }
+        return detailLiveData!!
     }
 }

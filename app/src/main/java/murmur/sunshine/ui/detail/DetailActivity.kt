@@ -19,10 +19,10 @@ class DetailActivity : AppCompatActivity() {
                         this, R.layout.activity_detail)
         val weatherId = intent.getLongExtra("id", 0L)
         val factory = DetailViewModelFactory(
-                WeatherRepository(this.applicationContext), weatherId)
+                WeatherRepository(this.applicationContext))
         val detailViewModel = ViewModelProviders
                 .of(this, factory)[DetailViewModel::class.java]
-        detailViewModel.weatherDetail.observe(this, Observer {
+        detailViewModel.getWeatherDetail(weatherId).observe(this, Observer {
             Log.d("kanna", "$it")
             binding.entry = it
             binding.util = WeatherEntryUtil
