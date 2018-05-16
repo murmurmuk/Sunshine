@@ -4,19 +4,24 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import dagger.android.AndroidInjection
 import murmur.sunshine.R
-import murmur.sunshine.data.WeatherRepository
 import murmur.sunshine.data.db.entity.WeatherEntry
 import murmur.sunshine.databinding.ActivityMainBinding
 import murmur.sunshine.ui.detail.DetailActivity
 import murmur.sunshine.ui.main.ForecastAdapter.ClickHandler
 import java.util.Date
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ClickHandler {
+
+    @Inject
+    lateinit var factory: MainViewModelFactory
+
     override fun clickEvent(id: Long?) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("id", id)
@@ -24,13 +29,11 @@ class MainActivity : AppCompatActivity(), ClickHandler {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil
                 .setContentView<ActivityMainBinding>(
                         this, R.layout.activity_main)
-
-        val factory = MainViewModelFactory(
-                WeatherRepository(this.applicationContext))
 
         val mainViewModel = ViewModelProviders
                 .of(this, factory)[MainViewModel::class.java]

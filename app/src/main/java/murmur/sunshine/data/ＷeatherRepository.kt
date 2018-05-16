@@ -1,19 +1,19 @@
 package murmur.sunshine.data
 
-import android.content.Context
 import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import murmur.sunshine.data.api.WeatherService
 import murmur.sunshine.data.api.response.mapper.toEntity
 import murmur.sunshine.data.db.AppDatabase
 import murmur.sunshine.data.db.entity.WeatherEntry
-import murmur.sunshine.util.SingletonItem
 import java.util.Date
+import javax.inject.Inject
 
-class WeatherRepository(ctx: Context)  {
-    private val networkService = SingletonItem.weatherService
-    private val weatherDao = AppDatabase.getInstance(ctx).weatherDao()
+class WeatherRepository @Inject constructor(private val networkService: WeatherService,
+                                            appDatabase: AppDatabase)  {
+    private val weatherDao = appDatabase.weatherDao()
 
     fun needFetchedNew(): Single<Boolean> {
         return Single.create<Boolean>{
