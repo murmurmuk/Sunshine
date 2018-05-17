@@ -11,8 +11,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MainViewModel (private val repository: WeatherRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private val repository: WeatherRepository) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     val forecast: LiveData<List<WeatherEntry>> by lazy {
         repository.needFetchedNew()

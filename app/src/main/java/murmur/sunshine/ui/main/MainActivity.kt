@@ -1,6 +1,7 @@
 package murmur.sunshine.ui.main
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -20,7 +21,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), ClickHandler {
 
     @Inject
-    lateinit var factory: MainViewModelFactory
+    lateinit var factory: ViewModelProvider.Factory
 
     override fun clickEvent(id: Long?) {
         val intent = Intent(this, DetailActivity::class.java)

@@ -1,6 +1,7 @@
 package murmur.sunshine.ui.detail
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
     @Inject
-    lateinit var factory: DetailViewModelFactory
+    lateinit var factory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
