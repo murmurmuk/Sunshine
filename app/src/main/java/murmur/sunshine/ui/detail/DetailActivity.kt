@@ -5,20 +5,18 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import murmur.sunshine.R
 import murmur.sunshine.databinding.ActivityDetailBinding
 import murmur.sunshine.util.WeatherEntryUtil
 import javax.inject.Inject
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil
                 .setContentView<ActivityDetailBinding>(

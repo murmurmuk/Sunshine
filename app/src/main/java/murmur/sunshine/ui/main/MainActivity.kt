@@ -6,10 +6,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import murmur.sunshine.R
 import murmur.sunshine.data.db.entity.WeatherEntry
 import murmur.sunshine.databinding.ActivityMainBinding
@@ -18,10 +17,16 @@ import murmur.sunshine.ui.main.ForecastAdapter.ClickHandler
 import java.util.Date
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), ClickHandler {
+class MainActivity : DaggerAppCompatActivity(), ClickHandler {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
+
+    private val binding: ActivityMainBinding by lazy {
+        DataBindingUtil
+                .setContentView<ActivityMainBinding>(
+                        this, R.layout.activity_main)
+    }
 
     override fun clickEvent(id: Long?) {
         val intent = Intent(this, DetailActivity::class.java)
@@ -30,11 +35,9 @@ class MainActivity : AppCompatActivity(), ClickHandler {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil
-                .setContentView<ActivityMainBinding>(
-                        this, R.layout.activity_main)
+        binding.forecastRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.forecastRecyclerView.setHasFixedSize(true)
 
         val mainViewModel = ViewModelProviders
                 .of(this, factory)[MainViewModel::class.java]
@@ -43,14 +46,12 @@ class MainActivity : AppCompatActivity(), ClickHandler {
             it?.forEach {
                Log.d("kanna", "${it.date} ${Date(it.date)} ${it.description} ")
             }
-            updateRecyclerView(binding, it)
+            updateRecyclerView(it)
         })
     }
 
-    private fun updateRecyclerView(binding: ActivityMainBinding, list: List<WeatherEntry>?) {
+    private fun updateRecyclerView(list: List<WeatherEntry>?) {
         if (list != null) {
-            binding.forecastRecyclerView.layoutManager = LinearLayoutManager(this)
-            binding.forecastRecyclerView.setHasFixedSize(true)
             binding.forecastRecyclerView.adapter = ForecastAdapter(list, this)
         }
     }

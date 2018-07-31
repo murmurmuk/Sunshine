@@ -3,6 +3,7 @@ package murmur.sunshine.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import murmur.sunshine.ui.App
 import javax.inject.Singleton
@@ -13,8 +14,8 @@ import javax.inject.Singleton
     AppModule::class,
     ActivityBuilder::class
 ])
-interface AppComponent {
-    fun inject(instance: App?)
+interface AppComponent : AndroidInjector<App>{
+    override fun inject(instance: App?)
 
     @Component.Builder
     interface Builder {
